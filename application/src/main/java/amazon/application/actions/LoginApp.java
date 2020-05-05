@@ -12,7 +12,7 @@ public class LoginApp extends BaseAction {
 	}
 	
 	public void clickOnSkipBtn(){
-		getElement("").click();
+		getElement("skip").click();
 	}
 
 }
