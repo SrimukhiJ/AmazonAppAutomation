@@ -45,23 +45,11 @@ public class BaseTest {
     @Parameters({"gridURL","device"})
     public void initialize(String gridURL,String device ) throws Exception {
         DesiredCapabilities cap=new DesiredCapabilities();
-        File f=new File("src/main/resources/4.0.9-Dev.apk");
+        File f=new File("src/main/resources/Amazon_shopping.apk");
         cap.setCapability(MobileCapabilityType.DEVICE_NAME,device );
-        cap.setCapability(MobileCapabilityType.APP,f.getAbsolutePath() );      
-        cap.setCapability("appPackage","com.moveinsync.driver.byod");	
-        cap.setCapability("appActivity","com.moveinsync.driver.byod.activities.SplashActivity");  
+        cap.setCapability(MobileCapabilityType.APP,f.getAbsolutePath());      
         driver=new AndroidDriver<AndroidElement>(new URL(gridURL),cap);      
 	}
-}
-    
-/*    public void configureApp() {
-		WebDriverWait wait = new WebDriverWait(driver, 5000);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.moveinsync.driver.byod:id/buid_tv")));
-	}*/
 
-	/*@AfterMethod
-    public void closeDriver(){
-AS																																											Aaz3333333
-        driver.closeApp();
-    }*/
+	}
 
