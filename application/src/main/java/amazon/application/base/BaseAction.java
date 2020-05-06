@@ -261,30 +261,37 @@ public class BaseAction {
 	public String getText(WebElement element){
 		String Text=null;
 		try{
-			return element.getText();
+			Text=element.getText();
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
 		return Text;
+	}	
+// Get alert box text
+	
+	public String get_AlertText(){
+		String alertText=null;
+		try{
+			alertText=driver.switchTo().alert().getText();
+			System.out.println("alert Text is"+alertText);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return alertText;
 	}
 	
+//Dismiss alert
+	public void DismissAlert(){
+		try{
+			driver.switchTo().alert().dismiss();
+			System.out.println("Closed alert");
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	
 }
