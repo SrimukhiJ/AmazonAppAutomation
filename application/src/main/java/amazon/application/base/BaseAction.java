@@ -3,6 +3,8 @@ package amazon.application.base;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.AndroidKeyCode;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import amazon.application.base.*;
 
+import java.awt.event.KeyEvent;
 import java.io.*;
 import java.util.*;
 
@@ -220,5 +223,68 @@ public class BaseAction {
 		WebDriverWait wait11 = new WebDriverWait(driver, 180);
 		wait11.until(ExpectedConditions.invisibilityOfElementWithText(By.cssSelector("div.imgClass"), "Loading..."));
 	}
+	
+	//Click on WebElement
+	public void clickElement(WebElement element)
+	{
+		try{
+			element.click();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	
+	//Enter text 
+	public void enterText(WebElement element,String text){
+		try{
+			element.clear();
+			element.sendKeys(text);
+			System.out.println("Text entered successfully"+ text);
+		}
+		catch(Exception e){
+			System.out.println("Unable to enter Text");
+			e.printStackTrace();
+
+		}
+	}
+	
+	//Click on Device back button
+	public void clickOnDeviceBackButton(){
+		 driver.pressKeyCode(AndroidKeyCode.BACK);
+		 System.out.println("Clicked on Back button");
+	}
+	
+	//Get the text
+	
+	public String getText(WebElement element){
+		String Text=null;
+		try{
+			return element.getText();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return Text;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	
 }

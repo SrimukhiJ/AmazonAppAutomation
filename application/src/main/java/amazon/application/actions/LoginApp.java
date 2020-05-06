@@ -14,5 +14,6 @@ public class LoginApp extends BaseAction {
 	public void clickOnSkipBtn(){
 		getElement("skip").click();
 	}
+	
 
 }
