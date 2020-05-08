@@ -8,7 +8,7 @@
 	<!-- </listeners> -->
 	<test name="Suite1">
 		<classes>
-		<!-- <class name="com.mis.test.AdhocTripSignOffEachEmpTest"/>  -->	
+		 <class name="amazon.application.test.AmazonAppTest"/>	
 		</classes>
 	</test>
 </suite>

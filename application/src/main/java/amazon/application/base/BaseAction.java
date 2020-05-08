@@ -1,229 +1,535 @@
 package amazon.application.base;
 
+import java.io.File;
+
+import java.io.IOException;
+import java.net.URL;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.io.FileUtils;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.ElementNotSelectableException;
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
+
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
+import com.relevantcodes.extentreports.ExtentTest;
+import amazon.application.utils.Reporter;
+import io.appium.java_client.MobileDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.AndroidKeyCode;
+import io.appium.java_client.remote.MobileCapabilityType;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
+public class BaseAction extends Reporter {
 
-import amazon.application.base.*;
+	public MobileDriver driver;
+	protected Properties prop;
+	public Map<String, String> capability = new HashMap<String, String>();
 
-import java.awt.event.KeyEvent;
-import java.io.*;
-import java.util.*;
+	public static String productNameSearchResults="";
+	public static String productPriceSearchResults="";
+	public static int productQuantity;
+    public static boolean offerProduct=false;
+	
 
-
-
-public class BaseAction {
-	protected AndroidDriver<AndroidElement> driver;
-	String fileName;
-	public Properties prop;
-	public Properties config;
-	public WebDriverWait wait;
-	public FileOutputStream fos;
-	protected int rowSize;
-	protected WebDriver webdriver;
-
-	public BaseAction(AndroidDriver<AndroidElement> driver, String fileName) {
-		wait = new WebDriverWait(driver, 240);
+	public BaseAction(MobileDriver driver, ExtentTest test) {
 		this.driver = driver;
-		this.fileName = fileName;
-
-		prop = new Properties();
-		try {
-			FileInputStream fis= new FileInputStream(Paths.PAGES + fileName);
-			
-			prop.load(fis);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		config = new Properties();
-		try {
-			FileInputStream fis = new FileInputStream("src/main/resources/Config.properties");
-			config.load(fis);
-			fis.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.test = test;
 	}
 
-	public BaseAction(WebDriver webdriver, String loginets) {
-		// TODO Auto-generated constructor stub
-		
-		wait = new WebDriverWait(webdriver, 240);
-		this.webdriver = driver;
-		this.fileName = fileName;
+	public BaseAction() {
 
-		prop = new Properties();
-		try {
-			FileInputStream fis = new FileInputStream(Paths.PAGES + fileName);
-			prop.load(fis);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		config = new Properties();
-		try {
-			FileInputStream fis = new FileInputStream("src/main/resources/Config.properties");
-			config.load(fis);
-			fis.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public WebElement getElement(String ref) {
-		try {
-			FileInputStream fis = new FileInputStream(Paths.PAGES + fileName);
-			prop.load(fis);
-		} catch (FileNotFoundException e) {
-		} catch (IOException e) {
-		}
-		WebElement element1 = null;
-		String record = prop.getProperty(ref);
-		String way = record.split("=")[0];
-		String key = record.substring(way.length() + 1);
-		WebDriverWait wt = new WebDriverWait(driver, 30);
-		if (way.equals("id")) {
-			element1 = wt.until(ExpectedConditions.visibilityOfElementLocated(By.id(key)));
-		} else if (way.equals("name")) {
-			element1 = wt.until(ExpectedConditions.visibilityOfElementLocated(By.name(key)));
-		} else if (way.equals("xpath")) {
-			element1 = wt.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(key)));
-		} else if (way.equals("linktext")) {
-			element1 = wt.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(key)));
-		} else if (way.equals("cssselector")) {
-			element1 = wt.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(key)));
-			element1 = wt.until(ExpectedConditions.elementToBeClickable(element1));
-		} else if (way.equals("class")) {
-			element1 = wt.until(ExpectedConditions.visibilityOfElementLocated(By.className(key)));
-		} else if (way.equals("tagName")) {
-			element1 = wt.until(ExpectedConditions.visibilityOfElementLocated(By.tagName(key)));
-		}
-		return element1;
-	}
-
-
-	public WebElement getElement(WebElement ele, String ref) {
-		WebElement element1 = null;
-		String record = prop.getProperty(ref+"");
-		String way = record.split("=")[0];
-		String key = record.substring(way.length() + 1);
-
-		if (way.equals("id")) {
-			element1 = ele.findElement(By.id(key));
-		} else if (way.equals("name")) {
-			element1 = ele.findElement(By.name(key));
-		} else if (way.equals("xpath")) {
-			element1 = ele.findElement(By.xpath(key));
-		} else if (way.equals("linktext")) {
-			element1 = ele.findElement(By.linkText(key));
-		} else if (way.equals("cssselector")) {
-			element1 = ele.findElement(By.cssSelector(key));
-		} else if (way.equals("class")) {
-			element1 = ele.findElement(By.className(key));
-		} else if (way.equals("tagName")) {
-			element1 = ele.findElement(By.tagName(key));
-		}
-
-		return element1;
-	}
-
-	public List<MobileElement> getElements(AndroidElement ele, String ref) {
-		try {
-			FileInputStream fis = new FileInputStream(Paths.PAGES + fileName);
-			prop.load(fis);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		List<MobileElement> elements = null;
-		String record = prop.getProperty(ref);
-		String way = record.split("=")[0];
-		String key = record.substring(way.length() + 1);
-
-		if (way.equals("id")) {
-			elements = ele.findElements(By.id(key));
-		} else if (way.equals("name")) {
-			elements = ele.findElements(By.name(key));
-		} else if (way.equals("xpath")) {
-			elements = ele.findElements(By.xpath(key));
-		} else if (way.equals("linktext")) {
-			elements = ele.findElements(By.linkText(key));
-		} else if (way.equals("cssselector")) {
-			elements = ele.findElements(By.cssSelector(key));
-		} else if (way.equals("class")) {
-			elements = ele.findElements(By.className(key));
-		} else if (way.equals("tagName")) {
-			elements = ele.findElements(By.tagName(key));
-		}
-		return elements;
-	}
-
-	public List<AndroidElement> getElements(String ref) {
-		List<AndroidElement> elements = null;
-		String record = prop.getProperty(ref);
-		String way = record.split("=")[0];
-		String key = record.substring(way.length() + 1);
-
-		if (way.equals("id")) {
-			elements = driver.findElements(By.id(key));
-		} else if (way.equals("name")) {
-			elements = driver.findElements(By.name(key));
-		} else if (way.equals("xpath")) {
-			elements = driver.findElements(By.xpath(key));
-		} else if (way.equals("linktext")) {
-			elements = driver.findElements(By.linkText(key));
-		} else if (way.equals("cssselector")) {
-			elements = driver.findElements(By.cssSelector(key));
-		} else if (way.equals("class")) {
-			elements = driver.findElements(By.className(key));
-		} else if (way.equals("tagName")) {
-			elements = driver.findElements(By.tagName(key));
-		}
-		return elements;
-	}
-
-
-    public WebElement getWebElementFor(String ref) {
-		try {
-			FileInputStream fis = new FileInputStream(Paths.PAGES + fileName);
-			prop.load(fis);
-		} catch (FileNotFoundException e) {
-		} catch (IOException e) {
-		}
-		WebElement element = null;
-		String arr[];
-		if (ref.contains(("::"))) {
-			arr = ref.split("::");
-			for (int i = 0; i < arr.length; i++) {
-				if (element == null) {
-					element = getElement(arr[i]);
-				} else {
-					element = getElement(element, arr[i]);
-				}
-			}
-		} else {
-			element = getElement(ref);
-		}
-		return element;
-	}
-
-	public void explicitWait() throws InterruptedException {
-		Thread.sleep(1000);
-		WebDriverWait wait11 = new WebDriverWait(driver, 180);
-		wait11.until(ExpectedConditions.invisibilityOfElementWithText(By.cssSelector("div.imgClass"), "Loading..."));
 	}
 	
+	public void startTestReport() {
+		test = startTestCase(testCaseName, testDescription);
+		test.assignCategory(category);
+		test.assignAuthor(authors);
+	}
+
+	 // Launch the application
+	 
+	public void invokeApp() {
+
+
+		URL urlObj = null;
+		DesiredCapabilities capabilities = new DesiredCapabilities();
+	
+
+		try {
+			String dir = System.getProperty("user.dir");
+			urlObj = new URL("http://" + "127.0.0.1" + ":" + capability.get("Port") + "/wd/hub");
+
+			switch (capability.get("PlatformName").toLowerCase()) {
+			case "android":
+				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, capability.get("PlatformName"));
+				capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, capability.get("PlatformVersion"));
+				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, capability.get("DeviceName"));
+				capabilities.setCapability(MobileCapabilityType.UDID, capability.get("udid"));
+				capabilities.setCapability("automationName", "UiAutomator2");
+				capabilities.setCapability("systemPort", capability.get("systemPort"));
+				capabilities.setCapability("newCommandTimeout", 9999);
+				capabilities.setCapability(MobileCapabilityType.APP, dir + "/app/android/Amazon_shopping.apk");
+				capabilities.setCapability("appPackage", "com.amazon.mShop.android.shopping");
+			    capabilities.setCapability("appActivity","com.amazon.mShop.home.HomeActivity");
+				driver = new AndroidDriver<MobileElement>(urlObj, capabilities);
+				System.out.println(" APP launched");
+
+				break;
+
+			default:
+				break;
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	  
+	 //Clicks an element
+	public void click(String property) {
+		By byProperty = getLocator(property);
+		MobileElement element = null;
+		try {
+			element = (MobileElement) driver.findElement(byProperty);
+			driver.findElement(byProperty).click();
+			System.out.println("Element is Clicked");
+
+		} catch (ElementNotFoundException e) {
+			Assert.assertTrue(false, element + "Element not found\n" + e.getMessage());
+		} catch (TimeoutException e) {
+			Assert.assertTrue(false, element + "Time out error\n" + e.getMessage());
+		} catch (ElementNotSelectableException e) {
+			Assert.assertTrue(false, element + "Element not Selectable\n" + e.getMessage());
+		} catch (ElementNotVisibleException e) {
+			Assert.assertTrue(false, element + "Element not Visible\n" + e.getMessage());
+		} catch (ElementNotInteractableException e) {
+			Assert.assertTrue(false, element + "Element not Interatable\n" + e.getMessage());
+		} catch (Exception e) {
+			Assert.assertTrue(false, e.getMessage());
+		}
+
+	}
+
+//Enter text
+	public void enterText(String property, String data) {
+		MobileElement element = null;
+		MobileElement element2 = null;
+		try {
+			element = (MobileElement) driver.findElement(getLocator(property));
+			element.clear();
+			element2 = (MobileElement) driver.findElement(getLocator(property));
+			element2.sendKeys(data);
+			System.out.println("Data is entered to the required Field");
+		}
+		catch (ElementNotFoundException e) {
+			Assert.assertTrue(false, element + "Element not found\n" + e.getMessage());
+		} catch (ElementNotSelectableException e) {
+			Assert.assertTrue(false, element + "Element not Selectable\n" + e.getMessage());
+		} catch (ElementNotVisibleException e) {
+			Assert.assertTrue(false, element + "Element not Visible\n" + e.getMessage());
+		} catch (ElementNotInteractableException e) {
+			Assert.assertTrue(false, element + "Element not Interatable\n" + e.getMessage());
+		} catch (TimeoutException e) {
+			Assert.assertTrue(false, element + "Time out error\n" + e.getMessage());
+		} catch (Exception e) {
+			Assert.assertTrue(false, e.getMessage());
+		}
+
+	}
+
+	 //Compares the given text with the element text in UI 
+	 
+	public boolean verifyText(String property, String text) {
+		MobileElement element = null;
+		String sText = "";
+		boolean val=false;
+		try {
+			element = (MobileElement) driver.findElement(getLocator(property));
+			sText = element.getText();
+			if (sText.equalsIgnoreCase(text)) {
+				val= true;
+			} 
+		}
+			 catch (Exception e) {
+			//verifyStep(e.getMessage(), "FAIL");
+			SoftAssert softAssert = new SoftAssert();
+			softAssert.assertTrue(false, e.getMessage());
+		}
+		return val;
+	}
+
+	 //Check whether the element is displayed
+	 
+	public void verifyElementIsDisplayed(String property) {
+		MobileElement element=null;
+		try {
+			driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
+			element = (MobileElement) driver.findElement(getLocator(property));
+			element.isDisplayed();
+		}catch (Exception e) {
+			Assert.assertTrue(false, "Element not displayed\n" + e.getMessage());
+		} 
+	}
+
+	 //Check whether the element is displayed or not (returns boolean value)
+	 
+	public boolean verifyIsDisplayed(String property) {
+		boolean present=false;
+		MobileElement element=null;
+		try {
+			element = (MobileElement) driver.findElement(getLocator(property));
+			element.isDisplayed();
+			present=true;
+			
+		}catch (Exception e) {
+			present=false;		} 
+		return present;
+	}
+
+	 //Verifies whether value is present or not
+	 
+	public void verifyElementIsPresent(String property, long timeoutInSecs){
+		try{
+			long startTime = System.currentTimeMillis();
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+			while (System.currentTimeMillis() < (startTime + (timeoutInSecs * 1000))) {
+				if (verifyIsDisplayed(property)){
+					driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+					return;
+				}
+			}
+			Assert.assertTrue(false, property + " is displayed or not validation");
+		}
+		catch (ElementNotFoundException e)
+		{
+			Assert.assertTrue(false, property + "Element not found\n" + e.getMessage());
+		}
+
+		catch (TimeoutException e) {
+			Assert.assertTrue(false, property + "Time out error\n" + e.getMessage());
+		}
+		catch (ElementNotSelectableException e){
+			Assert.assertTrue(false, getLocator(property) + "Element not Selectable\n" + e.getMessage());
+		}
+		catch (ElementNotVisibleException e) {
+			Assert.assertTrue(false, property + "Element not Visible\n" + e.getMessage());
+		}
+		catch (ElementNotInteractableException e) {
+			Assert.assertTrue(false, property + "Element not Interatable\n" + e.getMessage());
+		}
+		catch (Exception e) {
+			Assert.assertTrue(false, e.getMessage());
+		}
+	}
+	
+	 //Verfies element not present in the UI
+	 
+	public void verifyElementIsNotPresent(String property, long timeoutInSecs) {
+		try{
+			long startTime = System.currentTimeMillis();
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+			while (System.currentTimeMillis() < (startTime + (timeoutInSecs * 1000))) {
+				if (verifyIsDisplayed(property)) {
+					driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+					return;
+				}
+			}
+			Assert.assertTrue(true, property + " is displayed or not validation");
+
+		} catch (ElementNotFoundException e) {
+			Assert.assertTrue(true, property + "Element not found\n" + e.getMessage());
+		} catch (TimeoutException e) {
+			Assert.assertTrue(false, property + "Time out error\n" + e.getMessage());
+		} catch (ElementNotSelectableException e) {
+			Assert.assertTrue(false, getLocator(property) + "Element not Selectable\n" + e.getMessage());
+		} catch (ElementNotVisibleException e) {
+			Assert.assertTrue(false, property + "Element not Visible\n" + e.getMessage());
+		} catch (ElementNotInteractableException e) {
+			Assert.assertTrue(false, property + "Element not Interatable\n" + e.getMessage());
+		}
+
+		catch (Exception e) {
+			Assert.assertTrue(false, e.getMessage());
+		}
+
+	}
+
+
+	 // Get the text from the UI 
+	 
+	public String getText(String property) {
+		String bReturn = "";
+		MobileElement element = null;
+		try {
+			element = (MobileElement) driver.findElement(getLocator(property));
+			return element.getText();
+		} catch (ElementNotFoundException e) {
+			Assert.assertTrue(false, element + "Element not found\n" + e.getMessage());
+		} catch (TimeoutException e) {
+			Assert.assertTrue(false, element + "Time out error\n" + e.getMessage());
+		} catch (ElementNotSelectableException e) {
+			Assert.assertTrue(false, element + "Element not Selectable\n" + e.getMessage());
+		} catch (ElementNotVisibleException e) {
+			Assert.assertTrue(false, element + "Element not Visible\n" + e.getMessage());
+		} catch (ElementNotInteractableException e) {
+			Assert.assertTrue(false, element + "Element not Interatable\n" + e.getMessage());
+		}
+		catch (Exception e) {
+			Assert.assertTrue(false, e.getMessage());
+		}
+		return bReturn;
+	}
+
+	// Gets the attribute value for the element
+	 
+	public String getAttribute(String property, String attribute) {
+		String bReturn = "";
+
+		MobileElement element = null;
+
+		try {
+			element = (MobileElement) driver.findElement(getLocator(property));
+			return element.getAttribute(attribute);
+		} catch (ElementNotFoundException e) {
+			Assert.assertTrue(false, element + "Element not found\n" + e.getMessage());
+		} catch (TimeoutException e) {
+			Assert.assertTrue(false, element + "Time out error\n" + e.getMessage());
+		} catch (ElementNotSelectableException e) {
+			Assert.assertTrue(false, element + "Element not Selectable\n" + e.getMessage());
+		} catch (ElementNotVisibleException e) {
+
+			Assert.assertTrue(false, element + "Element not Visible\n" + e.getMessage());
+		} catch (ElementNotInteractableException e) {
+
+			Assert.assertTrue(false, element + "Element not Interatable\n" + e.getMessage());
+		}
+
+		catch (Exception e) {
+
+			Assert.assertTrue(false, e.getMessage());
+		}
+
+		return bReturn;
+	}
+
+	 //Take screenshot
+	 
+	public long takeSnap() {
+		long number = (long) Math.floor(Math.random() * 900000000L) + 10000000L;
+		try {
+			FileUtils.copyFile(((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE),
+					new File("./reports/images/" + number + ".jpg"));
+		} catch (IOException e) {
+		} catch (Exception e) {
+
+			System.out.println("The app has been closed.");
+		}
+		return number;
+	}
+
+	 // Get the locator from property file and extracts it based on id,name,xpath, etc..
+	 
+	public By getLocator(String property) {
+		String locator = property;
+
+		String locatorType = locator.split("===")[0];
+		String locatorValue = locator.split("===")[1];
+
+		if (locatorType.toLowerCase().equals("id"))
+			return By.id(locatorValue);
+		else if (locatorType.toLowerCase().equals("name"))
+			return By.name(locatorValue);
+		else if ((locatorType.toLowerCase().equals("classname")) || (locatorType.toLowerCase().equals("class")))
+			return By.className(locatorValue);
+		else if ((locatorType.toLowerCase().equals("tagname")) || (locatorType.toLowerCase().equals("tag")))
+			return By.className(locatorValue);
+		else if (locatorType.toLowerCase().equals("xpath"))
+			return By.xpath(locatorValue);
+
+		else
+			return null;
+	}
+
+	 //check whether the checkbox, radio button is selected or not
+	 
+	public boolean isSelected(String property) {
+		boolean value = false;
+		MobileElement element = null;
+		try {
+			element = (MobileElement) driver.findElement(getLocator(property));
+			value = driver.findElement(getLocator(property)).isSelected();
+
+		} catch (ElementNotFoundException e) {
+			Assert.assertTrue(false, element + "Element not found\n" + e.getMessage());
+		} catch (TimeoutException e) {
+			Assert.assertTrue(false, element + "Time out error\n" + e.getMessage());
+		} catch (ElementNotSelectableException e) {
+			Assert.assertTrue(false, element + "Element not Selectable\n" + e.getMessage());
+		} catch (ElementNotVisibleException e) {
+			Assert.assertTrue(false, element + "Element not Visible\n" + e.getMessage());
+		} catch (ElementNotInteractableException e) {
+			Assert.assertTrue(false, element + "Element not Interatable\n" + e.getMessage());
+		}
+
+		catch (Exception e) {
+			Assert.assertTrue(false, e.getMessage());
+		}
+	
+			return value;
+
+	}
+
+	//Hide Keypad
+	public void keypadDown() {
+		driver.hideKeyboard();
+	}
+
+  
+	 //clears the text from the input field
+	 
+	public void clearElement(String property) {
+		MobileElement element = null;
+		try {
+			element = (MobileElement) driver.findElement(getLocator(property));
+			element.clear();
+		}
+		catch (ElementNotFoundException e){
+			Assert.assertTrue(false,element + "Element not found\n" + e.getMessage());
+		}
+		catch (TimeoutException e) {
+			Assert.assertTrue(false,element + "Time out error\n" + e.getMessage());
+		}
+		catch (ElementNotSelectableException e)	{
+			Assert.assertTrue(false,element + "Element not Selectable\n" + e.getMessage());
+		}
+		catch (ElementNotVisibleException e) {
+			Assert.assertTrue(false,element + "Element not Visible\n" + e.getMessage());
+		}
+		catch (ElementNotInteractableException e) {
+			Assert.assertTrue(false,element + "Element not Interatable\n" + e.getMessage());
+		}
+		catch (Exception e) {
+			Assert.assertTrue(false,e.getMessage());
+		}
+
+	}
+  
+
+	 // swipes on the screen from bottom to top that is swipe down
+	 
+	public void swipeFullFromBottomToTop(String pfName) {
+		System.out.println("Swiping......");
+		try {
+			Thread.sleep(2000);
+			org.openqa.selenium.Dimension scrnSize = driver.manage().window().getSize();
+			int startx = (int) (scrnSize.width / 2);
+			int starty = (int) (scrnSize.height*0.3);
+			int endy = (int) (scrnSize.height*0.8);
+			if (pfName.equalsIgnoreCase("android")) {
+				((AndroidDriver<WebElement>) driver).swipe(startx, endy, startx, starty, 1000);
+			} 
+
+		} catch (InterruptedException e) {
+			Assert.assertTrue(false,e.getMessage());
+		}
+	}
+
+	 //verifies whether element present or not
+	 
+	public boolean verifyElement(String property) {
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
+		boolean present = true;
+		try {
+
+			
+			driver.findElement(getLocator(property));
+			return present;
+
+		} catch (Exception e) {
+			present = false;
+			return present;
+		}
+
+	}
+
+	 // Swipes to the element on the screen
+	
+	public void swipeToElement(String pfName, String property) {
+		while (true) {
+			if (verifyElement(property)) {
+				break;
+			}
+			swipeFullFromBottomToTop(pfName);
+		}
+	}
+
+	 // swipes on the screen from top to bottom that is swipe down
+	 
+	public void swipeFullFromTopToBottom(String pfName) {
+
+		try {
+			Thread.sleep(2000);
+			org.openqa.selenium.Dimension scrnSize = driver.manage().window().getSize();
+			int startx = (int) (scrnSize.width / 2);
+			int endy = (int) (scrnSize.height - 1);
+			int starty = (int) (scrnSize.height * 0.2);
+			// int endx = (int) (scrnSize.width /2);
+			if (pfName.equalsIgnoreCase("android")) {
+
+				((AndroidDriver<WebElement>) driver).swipe(startx, starty, startx, endy, 3000);
+			} 
+			
+		} catch (InterruptedException e) {
+			Assert.assertTrue(false,e.getMessage());
+		}
+
+	}
+
+	 // Swipes to the given elemet in upward direction
+	 
+	public void swipeToElementUpwards(String pfName, String property) {
+		while (true) {
+			if (verifyElement(property)) {
+				break;
+			}
+			swipeFullFromTopToBottom(pfName);
+		}
+		
+	}
+	
+	//  Launch the app on the device
+
+	public void launchApp() {
+		System.out.println("Launching the app");
+		driver.launchApp();
+	}
+
+	
+	// click on the android back button
+	
+	public void clickAndroidBack() {
+
+		((AndroidDriver) driver).pressKeyCode(AndroidKeyCode.BACK);
+
+	}
+
 	//Click on WebElement
 	public void clickElement(WebElement element)
 	{
@@ -248,12 +554,6 @@ public class BaseAction {
 			e.printStackTrace();
 
 		}
-	}
-	
-	//Click on Device back button
-	public void clickOnDeviceBackButton(){
-		 driver.pressKeyCode(AndroidKeyCode.BACK);
-		 System.out.println("Clicked on Back button");
 	}
 	
 	//Get the text
@@ -293,5 +593,16 @@ public class BaseAction {
 		}
 	}
 	
-	
+	//Close App
+		public void closeApp() {
+			try {
+				driver.closeApp();
+			} catch (Exception e) {
+
+			}
+
+		}
+		
+
+		
 }
