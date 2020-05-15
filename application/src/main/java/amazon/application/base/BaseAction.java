@@ -134,7 +134,6 @@ public class BaseAction extends Reporter {
 				val = true;
 			}
 		} catch (Exception e) {
-			// verifyStep(e.getMessage(), "FAIL");
 			SoftAssert softAssert = new SoftAssert();
 			softAssert.assertTrue(false, e.getMessage());
 		}
