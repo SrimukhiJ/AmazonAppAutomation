@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import org.testng.Assert;
 import com.relevantcodes.extentreports.ExtentTest;
 import amazon.application.base.BaseAction;
 import amazon.application.base.Wrapper;
@@ -43,9 +44,9 @@ public class CheckoutPageAction extends Wrapper {
 		subTotalprodPriceShopCartfull[0] = subTotalprodPriceShopCartfull[0].replaceAll("[^a-zA-Z0-9]", "");
 		String subTotalprodPriceShopCart="₹"+subTotalprodPriceShopCartfull[0];
 		int prodQuant=Integer.parseInt(getText(prop.getProperty("text.quantityShoppingCart")));		
-		org.testng.Assert.assertEquals(prodPriceShopCart, BaseAction.productPriceSearchResults);
-		org.testng.Assert.assertEquals(subTotalprodPriceShopCart, BaseAction.productPriceSearchResults);
-		org.testng.Assert.assertEquals(prodQuant, BaseAction.productQuantity);
+		Assert.assertEquals(prodPriceShopCart, BaseAction.productPriceSearchResults);
+		Assert.assertEquals(subTotalprodPriceShopCart, BaseAction.productPriceSearchResults);
+		Assert.assertEquals(prodQuant, BaseAction.productQuantity);
 		return this;
 	}
 	 // Clicks on Procced to Buy button in cart page
@@ -90,7 +91,7 @@ public class CheckoutPageAction extends Wrapper {
 		deliveryFullPrice=deliveryFullPrice.replaceAll("[^a-zA-Z0-9]", "");
 		int deliveryPrice=Integer.parseInt(deliveryFullPrice);
 		int totalProdPriceCalc=deliveryPrice+prodPrice;
-		org.testng.Assert.assertEquals(totalProdPriceCalc, totalPrice);
+		Assert.assertEquals(totalProdPriceCalc, totalPrice);
 		String prodNameCheckout="";
 	    String prodPriceShopCart="";
 	    int prodQuant;
@@ -117,9 +118,9 @@ public class CheckoutPageAction extends Wrapper {
 		verifyStep("Product name checkout page : "+prodNameCheckout, "INFO");
 		verifyStep("Product price checkout page : "+prodPriceShopCart, "INFO");
 		verifyStep("Product quantity checkout page : "+prodQuant, "INFO");	
-		org.testng.Assert.assertEquals(prodPriceShopCart, BaseAction.productPriceSearchResults);
-		org.testng.Assert.assertEquals(prodNameCheckout, BaseAction.productNameSearchResults);
-		org.testng.Assert.assertEquals(prodQuant, BaseAction.productQuantity);				
+		Assert.assertEquals(prodPriceShopCart, BaseAction.productPriceSearchResults);
+		Assert.assertEquals(prodNameCheckout, BaseAction.productNameSearchResults);
+		Assert.assertEquals(prodQuant, BaseAction.productQuantity);				
 		return this;
 	}	
 }

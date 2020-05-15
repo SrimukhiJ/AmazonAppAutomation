@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import org.testng.Assert;
 import com.relevantcodes.extentreports.ExtentTest;
 import amazon.application.base.BaseAction;
 import amazon.application.base.Wrapper;
@@ -54,7 +55,7 @@ public class PDPPageAction extends Wrapper {
 		verifyStep("Product details page displayed", "PASS");
 		String pdpPageProductTitle=getText(prop.getProperty("text.productTitle"));
 		verifyStep("Product name PDP page : "+pdpPageProductTitle, "INFO");
-		org.testng.Assert.assertEquals(pdpPageProductTitle, BaseAction.productNameSearchResults);
+		Assert.assertEquals(pdpPageProductTitle, BaseAction.productNameSearchResults);
 		swipeFullFromBottomToTop("android");
 		if(verifyIsDisplayed(prop.getProperty("text.pdpPageSavingsPrice")))
 		{
@@ -63,7 +64,7 @@ public class PDPPageAction extends Wrapper {
 		String pdpPageProductPrice=getText(prop.getProperty("text.productPrice"));
 		pdpPageProductPrice=pdpPageProductPrice.replace("rupees ", "₹");
 		verifyStep("Product price PDP page : "+pdpPageProductPrice, "INFO");
-		org.testng.Assert.assertEquals(pdpPageProductPrice, BaseAction.productPriceSearchResults);
+		Assert.assertEquals(pdpPageProductPrice, BaseAction.productPriceSearchResults);
 		swipeToElement("android", prop.getProperty("button.wishListButton"));
 		if(!verifyIsDisplayed(prop.getProperty("button.addtoCartButton")))
 		{
