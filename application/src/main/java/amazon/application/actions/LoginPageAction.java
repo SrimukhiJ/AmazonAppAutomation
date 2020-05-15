@@ -38,11 +38,9 @@ public class LoginPageAction extends Wrapper {
 		verifyStep("App launched", "PASS");
 		verifyElementIsDisplayed(prop.getProperty("button.signInButtonNavigation"));
 		click(prop.getProperty("button.signInButtonNavigation"));
-		verifyElementIsDisplayed(prop.getProperty("edit.emailField"));
 		enterText(prop.getProperty("edit.emailField"), signinDetailsMap.get("Username"));
 		click(prop.getProperty("button.continueButton"));
 		verifyStep("Login Page displayed", "PASS");
-		verifyElementIsDisplayed(prop.getProperty("edit.passwordField"));
 		enterText(prop.getProperty("edit.passwordField"), signinDetailsMap.get("Password"));
 		click(prop.getProperty("button.logInButton"));
 		return this;

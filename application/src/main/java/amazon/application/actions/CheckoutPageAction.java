@@ -36,17 +36,13 @@ public class CheckoutPageAction extends Wrapper {
 		verifyStep("Shopping cart page displayed", "PASS");		
 		String prodNameShopCart=getText(prop.getProperty("text.productNameShoppingCart"));
 		verifyStep("Product name shopping cart : "+prodNameShopCart, "INFO");
-		verifyElementIsDisplayed(prop.getProperty("text.productPriceShoppingCart"));
 		String[] prodPriceShopCartFull=getText(prop.getProperty("text.productPriceShoppingCart")).split("\\.");
 		prodPriceShopCartFull[0] = prodPriceShopCartFull[0].replaceAll("[^a-zA-Z0-9]", "");
 		String prodPriceShopCart="₹"+(prodPriceShopCartFull[0].trim());
 		verifyStep("Product price shopping cart : "+prodPriceShopCart, "INFO");
-		verifyElementIsDisplayed(prop.getProperty("image.productImageShoppingCart"));
-		verifyElementIsDisplayed(prop.getProperty("text.subTotalShoppingCart"));
 		String[] subTotalprodPriceShopCartfull=getText(prop.getProperty("text.subTotalShoppingCart")).split("\\.");
 		subTotalprodPriceShopCartfull[0] = subTotalprodPriceShopCartfull[0].replaceAll("[^a-zA-Z0-9]", "");
 		String subTotalprodPriceShopCart="₹"+subTotalprodPriceShopCartfull[0];
-		verifyElementIsDisplayed(prop.getProperty("text.quantityShoppingCart"));
 		int prodQuant=Integer.parseInt(getText(prop.getProperty("text.quantityShoppingCart")));		
 		verifyStep("Product quantity shopping cart : "+prodQuant, "INFO");		
 		org.testng.Assert.assertEquals(prodPriceShopCart, BaseAction.productPriceSearchResults);
@@ -56,18 +52,14 @@ public class CheckoutPageAction extends Wrapper {
 	}
 	 // Clicks on Procced to Buy button in cart page
 	public CheckoutPageAction proceedtoBuy() {		
-		verifyElementIsDisplayed(prop.getProperty("button.proceedToBuy"));
 		click(prop.getProperty("button.proceedToBuy"));	
 		return this;
 	}
 	 // Selects the shipping address and proceed to the next page
 	public CheckoutPageAction selectShippingAddress() {		
-		verifyElementIsDisplayed(prop.getProperty("text.ShippingAddress"));
 		String address=getText(prop.getProperty("text.ShippingAddress"));
 		System.out.println("address : "+address);		
-		verifyElementIsDisplayed(prop.getProperty("button.deliverButton"));
 		click(prop.getProperty("button.deliverButton"));
-		verifyElementIsDisplayed(prop.getProperty("button.continueButton"));
 		click(prop.getProperty("button.continueButton"));
 		return this;
 	}
@@ -78,23 +70,12 @@ public class CheckoutPageAction extends Wrapper {
 		swipeFullFromBottomToTop("android");		
 		if(!verifyIsDisplayed(prop.getProperty("edit.cVVEnterField")))
 		{
-			verifyElementIsDisplayed(prop.getProperty("text.paymentCardSelect"));
 			click(prop.getProperty("text.paymentCardSelect"));	
 		}
-		verifyElementIsDisplayed(prop.getProperty("edit.cVVEnterField"));
 		enterText(prop.getProperty("edit.cVVEnterField"), cvvData.get("Cvv"));		
 		swipeToElement("android",prop.getProperty("button.continueButton"));		
-		verifyElementIsDisplayed(prop.getProperty("button.continueButton"));
 		click(prop.getProperty("button.continueButton"));
 	return this;
-	}
-	//Skips the Amazon prime membership
-	public CheckoutPageAction selectPrimeMember() throws InterruptedException {		
-		if(verifyIsDisplayed(prop.getProperty("button.NoThanksButton")))
-		{
-			click(prop.getProperty("button.NoThanksButton"));
-		}	
-		return this;
 	}	
 	//Validate the checkout page
 	public CheckoutPageAction validateCheckoutPage() throws InterruptedException {
@@ -104,11 +85,9 @@ public class CheckoutPageAction extends Wrapper {
 		String totalPriceFull=getText(prop.getProperty("price.checkoutTotalPrice"));
 		totalPriceFull=totalPriceFull.replaceAll("[^a-zA-Z0-9]", "");
 		int totalPrice=Integer.parseInt(totalPriceFull);
-		verifyElementIsDisplayed(prop.getProperty("price.checkoutBreakdownProductPrice"));
 		String breaqkdownprodfullprice=getText(prop.getProperty("price.checkoutBreakdownProductPrice"));
 		breaqkdownprodfullprice=breaqkdownprodfullprice.replaceAll("[^a-zA-Z0-9]", "");
 		int prodPrice=Integer.parseInt(breaqkdownprodfullprice);
-		verifyElementIsDisplayed(prop.getProperty("price.checkOutDeliveryPrice"));
 		String deliveryFullPrice=getText(prop.getProperty("price.checkOutDeliveryPrice"));
 		deliveryFullPrice=deliveryFullPrice.replaceAll("[^a-zA-Z0-9]", "");
 		int deliveryPrice=Integer.parseInt(deliveryFullPrice);
@@ -122,9 +101,7 @@ public class CheckoutPageAction extends Wrapper {
 		   swipeToElement("android", prop.getProperty("text.ProductQuantityCheckout"));
 		   System.out.println("offer product");
 		   swipeFullFromBottomToTop("android");
-		   verifyElementIsDisplayed(prop.getProperty("text.ProductTitleCheckoutOfferProduct"));
 			prodNameCheckout=getText(prop.getProperty("text.ProductTitleCheckoutOfferProduct"));			
-			verifyElementIsDisplayed(prop.getProperty("text.ProductPriceCheckoutOfferProduct"));
 			String[] prodPriceShopCartFull=getText(prop.getProperty("text.ProductPriceCheckoutOfferProduct")).split("\\.");
 			prodPriceShopCart="₹"+prodPriceShopCartFull[0];			
 	   }
@@ -133,13 +110,10 @@ public class CheckoutPageAction extends Wrapper {
 		   swipeToElement("android", prop.getProperty("text.ProductQuantityCheckout"));
 		   System.out.println("non offer product : ");
 		   swipeFullFromBottomToTop("android");
-		   verifyElementIsDisplayed(prop.getProperty("text.ProductTitleCheckout"));
 			prodNameCheckout=getText(prop.getProperty("text.ProductTitleCheckout"));			
-			verifyElementIsDisplayed(prop.getProperty("text.ProductPriceCheckout"));
 			String[] prodPriceShopCartFull=getText(prop.getProperty("text.ProductPriceCheckout")).split("\\.");
 			prodPriceShopCart="₹"+prodPriceShopCartFull[0];		   
 	   }	  
-	    verifyElementIsDisplayed(prop.getProperty("text.ProductQuantityCheckout"));
 		String quantFull=getText(prop.getProperty("text.ProductQuantityCheckout"));
 		prodQuant=Integer.parseInt(quantFull);		
 		verifyStep("Product name checkout page : "+prodNameCheckout, "INFO");

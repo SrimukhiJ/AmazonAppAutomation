@@ -47,14 +47,10 @@ public class PDPPageAction extends Wrapper {
 		verifyStep("Product Price search page :"+BaseAction.productPriceSearchResults, "INFO");
 		click(prop.getProperty("text.prodSearchPageTitle"));
 		return this;
-	}
-	
+	}	
 	// Validate PDP page
 	public PDPPageAction validatePDPPage() {	
 		verifyElementIsDisplayed(prop.getProperty("text.productTitle"));
-		verifyElementIsDisplayed(prop.getProperty("image.productReview"));
-		verifyElementIsDisplayed(prop.getProperty("button.shareProduct"));
-		verifyElementIsDisplayed(prop.getProperty("button.ProductImage"));		
 		verifyStep("Product details page displayed", "PASS");
 		String pdpPageProductTitle=getText(prop.getProperty("text.productTitle"));
 		verifyStep("Product name PDP page : "+pdpPageProductTitle, "INFO");
@@ -77,15 +73,12 @@ public class PDPPageAction extends Wrapper {
 		swipeToElement("android", prop.getProperty("button.addtoCartButton"));
 		BaseAction.productQuantity=Integer.parseInt(getText(prop.getProperty("text.quantityDropdown")));
 		verifyStep("Product quantity PDP page : "+BaseAction.productQuantity, "INFO");
-		verifyElementIsDisplayed(prop.getProperty("button.addtoCartButton"));
 		return this;
 		}
 	 // Adds the selected product to the cart and validates the cart count
 	public PDPPageAction addToCart() throws InterruptedException {
-		verifyElementIsDisplayed(prop.getProperty("text.cartCount"));
 		int cartCountBefore=Integer.parseInt(getText(prop.getProperty("text.cartCount")));
 		click(prop.getProperty("button.addtoCartButton"));
-		verifyElementIsDisplayed(prop.getProperty("text.cartCount"));
 		int cartCountAfter=Integer.parseInt(getText(prop.getProperty("text.cartCount")));
 		if(cartCountBefore+BaseAction.productQuantity==cartCountAfter)
 		{
@@ -95,7 +88,6 @@ public class PDPPageAction extends Wrapper {
 	}
 	// Clicks on cart icon on top and navigates to shopping cart page
 	public PDPPageAction naviogatetoShoppingCart() {
-		verifyElementIsDisplayed(prop.getProperty("button.cartButton"));
 		click(prop.getProperty("button.cartButton"));
 		return this;
 	}

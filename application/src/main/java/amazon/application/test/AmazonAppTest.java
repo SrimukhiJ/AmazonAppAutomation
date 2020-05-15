@@ -43,7 +43,6 @@ public class AmazonAppTest extends Wrapper {
 			home.selectLanguage();
 			home.validateLogin();
 			home.selectLanguage();
-			home.clearCart();
 			home.searchProduct();
 			PDPPageAction pdp=new PDPPageAction(driver, test, capability);
 			pdp.validateSearchResultPage();
@@ -62,8 +61,3 @@ public class AmazonAppTest extends Wrapper {
 		}
 	}
 }
-
-	
-
-
-
