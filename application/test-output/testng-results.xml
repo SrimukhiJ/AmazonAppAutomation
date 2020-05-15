@@ -1,80 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="1" ignored="0" total="1" passed="0">
-  <reporter-output>
-    <line>
+<testng-results skipped="0" failed="1" ignored="0" total="1"
+	passed="0">
+	<reporter-output>
+		<line>
       <![CDATA[<br>App launched</br><br><a href='C:\Users\DELL\git\AmazonAppAutomation\application\reports\images\295587423.jpg'> <img src='C:\Users\DELL\git\AmazonAppAutomation\application\reports\images\295587423.jpg' height='300' width='200'/> </a><br>]]>
-    </line>
-    <line>
+		</line>
+		<line>
       <![CDATA[<br>java.lang.AssertionError: Element not displayed
 null expected [true] but found [false]</br><br><a href='C:\Users\DELL\git\AmazonAppAutomation\application\reports\images\505576322.jpg'> <img src='C:\Users\DELL\git\AmazonAppAutomation\application\reports\images\505576322.jpg' height='300' width='200'/> </a><br>]]>
-    </line>
-  </reporter-output>
-  <suite name="Default suite" duration-ms="565" started-at="2020-05-08T07:18:32Z" finished-at="2020-05-08T07:18:33Z">
-    <groups>
-    </groups>
-    <test name="Default test" duration-ms="565" started-at="2020-05-08T07:18:32Z" finished-at="2020-05-08T07:18:33Z">
-      <class name="amazon.application.test.AmazonAppTest">
-        <test-method status="PASS" signature="beforeSuite()[pri:0, instance:amazon.application.test.AmazonAppTest@1efee8e7]" name="beforeSuite" is-config="true" duration-ms="3146" started-at="2020-05-08T07:18:29Z" finished-at="2020-05-08T07:18:32Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- beforeSuite -->
-        <test-method status="PASS" signature="setData(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:amazon.application.test.AmazonAppTest@1efee8e7]" name="setData" is-config="true" duration-ms="51" started-at="2020-05-08T07:18:32Z" finished-at="2020-05-08T07:18:32Z">
-          <params>
-            <param index="0">
-              <value>
+		</line>
+	</reporter-output>
+	<suite name="Default suite" duration-ms="565" started-at="2020-05-08T07:18:32Z"
+		finished-at="2020-05-08T07:18:33Z">
+		<groups>
+		</groups>
+		<test name="Default test" duration-ms="565" started-at="2020-05-08T07:18:32Z"
+			finished-at="2020-05-08T07:18:33Z">
+			<class name="amazon.application.test.AmazonAppTest">
+				<test-method status="PASS"
+					signature="beforeSuite()[pri:0, instance:amazon.application.test.AmazonAppTest@1efee8e7]"
+					name="beforeSuite" is-config="true" duration-ms="3146"
+					started-at="2020-05-08T07:18:29Z" finished-at="2020-05-08T07:18:32Z">
+					<reporter-output>
+					</reporter-output>
+				</test-method> <!-- beforeSuite -->
+				<test-method status="PASS"
+					signature="setData(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:amazon.application.test.AmazonAppTest@1efee8e7]"
+					name="setData" is-config="true" duration-ms="51" started-at="2020-05-08T07:18:32Z"
+					finished-at="2020-05-08T07:18:32Z">
+					<params>
+						<param index="0">
+							<value>
                 <![CDATA[param-val-not-found]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
+							</value>
+						</param>
+						<param index="1">
+							<value>
                 <![CDATA[param-val-not-found]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
+							</value>
+						</param>
+						<param index="2">
+							<value>
                 <![CDATA[param-val-not-found]]>
-              </value>
-            </param>
-            <param index="3">
-              <value>
+							</value>
+						</param>
+						<param index="3">
+							<value>
                 <![CDATA[param-val-not-found]]>
-              </value>
-            </param>
-            <param index="4">
-              <value>
+							</value>
+						</param>
+						<param index="4">
+							<value>
                 <![CDATA[param-val-not-found]]>
-              </value>
-            </param>
-            <param index="5">
-              <value>
+							</value>
+						</param>
+						<param index="5">
+							<value>
                 <![CDATA[param-val-not-found]]>
-              </value>
-            </param>
-            <param index="6">
-              <value>
+							</value>
+						</param>
+						<param index="6">
+							<value>
                 <![CDATA[param-val-not-found]]>
-              </value>
-            </param>
-            <param index="7">
-              <value>
+							</value>
+						</param>
+						<param index="7">
+							<value>
                 <![CDATA[param-val-not-found]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setData -->
-        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:amazon.application.test.AmazonAppTest@1efee8e7]" name="beforeMethod" is-config="true" duration-ms="73" started-at="2020-05-08T07:18:32Z" finished-at="2020-05-08T07:18:32Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- beforeMethod -->
-        <test-method status="FAIL" signature="Amazon_Login_And_Place_Order_TC001()[pri:1, instance:amazon.application.test.AmazonAppTest@1efee8e7]" name="Amazon_Login_And_Place_Order_TC001" duration-ms="348" started-at="2020-05-08T07:18:32Z" finished-at="2020-05-08T07:18:33Z">
-          <exception class="java.lang.AssertionError">
-            <message>
+							</value>
+						</param>
+					</params>
+					<reporter-output>
+					</reporter-output>
+				</test-method> <!-- setData -->
+				<test-method status="PASS"
+					signature="beforeMethod()[pri:0, instance:amazon.application.test.AmazonAppTest@1efee8e7]"
+					name="beforeMethod" is-config="true" duration-ms="73"
+					started-at="2020-05-08T07:18:32Z" finished-at="2020-05-08T07:18:32Z">
+					<reporter-output>
+					</reporter-output>
+				</test-method> <!-- beforeMethod -->
+				<test-method status="FAIL"
+					signature="Amazon_Login_And_Place_Order_TC001()[pri:1, instance:amazon.application.test.AmazonAppTest@1efee8e7]"
+					name="Amazon_Login_And_Place_Order_TC001" duration-ms="348"
+					started-at="2020-05-08T07:18:32Z" finished-at="2020-05-08T07:18:33Z">
+					<exception class="java.lang.AssertionError">
+						<message>
               <![CDATA[Element not displayed
 null expected [true] but found [false]]]>
-            </message>
-            <full-stacktrace>
+						</message>
+						<full-stacktrace>
               <![CDATA[java.lang.AssertionError: Element not displayed
 null expected [true] but found [false]
 at org.testng.Assert.fail(Assert.java:96)
@@ -109,34 +124,40 @@ at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
 at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 ]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
-          <reporter-output>
-            <line>
+						</full-stacktrace>
+					</exception> <!-- java.lang.AssertionError -->
+					<reporter-output>
+						<line>
               <![CDATA[<br>App launched</br><br><a href='C:\Users\DELL\git\AmazonAppAutomation\application\reports\images\295587423.jpg'> <img src='C:\Users\DELL\git\AmazonAppAutomation\application\reports\images\295587423.jpg' height='300' width='200'/> </a><br>]]>
-            </line>
-          </reporter-output>
-        </test-method> <!-- Amazon_Login_And_Place_Order_TC001 -->
-        <test-method status="PASS" signature="afterMethod(org.testng.ITestResult)[pri:0, instance:amazon.application.test.AmazonAppTest@1efee8e7]" name="afterMethod" is-config="true" duration-ms="7" started-at="2020-05-08T07:18:33Z" finished-at="2020-05-08T07:18:33Z">
-          <params>
-            <param index="0">
-              <value>
+						</line>
+					</reporter-output>
+				</test-method> <!-- Amazon_Login_And_Place_Order_TC001 -->
+				<test-method status="PASS"
+					signature="afterMethod(org.testng.ITestResult)[pri:0, instance:amazon.application.test.AmazonAppTest@1efee8e7]"
+					name="afterMethod" is-config="true" duration-ms="7"
+					started-at="2020-05-08T07:18:33Z" finished-at="2020-05-08T07:18:33Z">
+					<params>
+						<param index="0">
+							<value>
                 <![CDATA[[TestResult name=Amazon_Login_And_Place_Order_TC001 status=FAILURE method=AmazonAppTest.Amazon_Login_And_Place_Order_TC001()[pri:1, instance:amazon.application.test.AmazonAppTest@1efee8e7] output=<br>App launched</br><br><a href='C:\Users\DELL\git\AmazonAppAutomation\application\reports\images\295587423.jpg'> <img src='C:\Users\DELL\git\AmazonAppAutomation\application\reports\images\295587423.jpg' height='300' width='200'/> </a><br>]]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-            <line>
+							</value>
+						</param>
+					</params>
+					<reporter-output>
+						<line>
               <![CDATA[<br>java.lang.AssertionError: Element not displayed
 null expected [true] but found [false]</br><br><a href='C:\Users\DELL\git\AmazonAppAutomation\application\reports\images\505576322.jpg'> <img src='C:\Users\DELL\git\AmazonAppAutomation\application\reports\images\505576322.jpg' height='300' width='200'/> </a><br>]]>
-            </line>
-          </reporter-output>
-        </test-method> <!-- afterMethod -->
-        <test-method status="PASS" signature="afterSuite()[pri:0, instance:amazon.application.test.AmazonAppTest@1efee8e7]" name="afterSuite" is-config="true" duration-ms="2427" started-at="2020-05-08T07:18:33Z" finished-at="2020-05-08T07:18:35Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- afterSuite -->
-      </class> <!-- amazon.application.test.AmazonAppTest -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+						</line>
+					</reporter-output>
+				</test-method> <!-- afterMethod -->
+				<test-method status="PASS"
+					signature="afterSuite()[pri:0, instance:amazon.application.test.AmazonAppTest@1efee8e7]"
+					name="afterSuite" is-config="true" duration-ms="2427"
+					started-at="2020-05-08T07:18:33Z" finished-at="2020-05-08T07:18:35Z">
+					<reporter-output>
+					</reporter-output>
+				</test-method> <!-- afterSuite -->
+			</class> <!-- amazon.application.test.AmazonAppTest -->
+		</test> <!-- Default test -->
+	</suite> <!-- Default suite -->
 </testng-results>

@@ -1,5 +1,4 @@
 package amazon.application.actions;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -160,63 +159,40 @@ public class CheckoutPageAction extends Wrapper {
 
 		int totalProdPriceCalc=deliveryPrice+prodPrice;
 		org.testng.Assert.assertEquals(totalProdPriceCalc, totalPrice);
-
-
-		
-	   String prodNameCheckout="";
-	   String prodPriceShopCart="";
-	   int prodQuant;
-	   if(BaseAction.offerProduct)
-	   {
+		String prodNameCheckout="";
+	    String prodPriceShopCart="";
+	    int prodQuant;
+	    if(BaseAction.offerProduct)
+	    {
 		   swipeToElement("android", prop.getProperty("text.ProductQuantityCheckout"));
-
 		   System.out.println("offer product");
 		   swipeFullFromBottomToTop("android");
 		   verifyElementIsDisplayed(prop.getProperty("text.ProductTitleCheckoutOfferProduct"));
-			prodNameCheckout=getText(prop.getProperty("text.ProductTitleCheckoutOfferProduct"));
-			
+			prodNameCheckout=getText(prop.getProperty("text.ProductTitleCheckoutOfferProduct"));			
 			verifyElementIsDisplayed(prop.getProperty("text.ProductPriceCheckoutOfferProduct"));
 			String[] prodPriceShopCartFull=getText(prop.getProperty("text.ProductPriceCheckoutOfferProduct")).split("\\.");
-			prodPriceShopCart="₹"+prodPriceShopCartFull[0];
-			
+			prodPriceShopCart="₹"+prodPriceShopCartFull[0];			
 	   }
-
 	   else
 	   {
 		   swipeToElement("android", prop.getProperty("text.ProductQuantityCheckout"));
 		   System.out.println("non offer product : ");
-
 		   swipeFullFromBottomToTop("android");
-		  
-
 		   verifyElementIsDisplayed(prop.getProperty("text.ProductTitleCheckout"));
-			prodNameCheckout=getText(prop.getProperty("text.ProductTitleCheckout"));
-			
+			prodNameCheckout=getText(prop.getProperty("text.ProductTitleCheckout"));			
 			verifyElementIsDisplayed(prop.getProperty("text.ProductPriceCheckout"));
 			String[] prodPriceShopCartFull=getText(prop.getProperty("text.ProductPriceCheckout")).split("\\.");
-			prodPriceShopCart="₹"+prodPriceShopCartFull[0];
-					
-			   
-	   }
-	  
+			prodPriceShopCart="₹"+prodPriceShopCartFull[0];		   
+	   }	  
 	    verifyElementIsDisplayed(prop.getProperty("text.ProductQuantityCheckout"));
 		String quantFull=getText(prop.getProperty("text.ProductQuantityCheckout"));
-		prodQuant=Integer.parseInt(quantFull);
-		
+		prodQuant=Integer.parseInt(quantFull);		
 		verifyStep("Product name checkout page : "+prodNameCheckout, "INFO");
-		
-
 		verifyStep("Product price checkout page : "+prodPriceShopCart, "INFO");
-
-		verifyStep("Product quantity checkout page : "+prodQuant, "INFO");
-	
+		verifyStep("Product quantity checkout page : "+prodQuant, "INFO");	
 		org.testng.Assert.assertEquals(prodPriceShopCart, BaseAction.productPriceSearchResults);
-
 		org.testng.Assert.assertEquals(prodNameCheckout, BaseAction.productNameSearchResults);
-
-		org.testng.Assert.assertEquals(prodQuant, BaseAction.productQuantity);		
-		
+		org.testng.Assert.assertEquals(prodQuant, BaseAction.productQuantity);				
 		return this;
-	}
-	
+	}	
 }
