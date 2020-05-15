@@ -393,9 +393,7 @@ public class BaseAction extends Reporter {
 			int startx = (int) (scrnSize.width / 2);
 			int endy = (int) (scrnSize.height - 1);
 			int starty = (int) (scrnSize.height * 0.2);
-			// int endx = (int) (scrnSize.width /2);
 			if (pfName.equalsIgnoreCase("android")) {
-
 				((AndroidDriver<WebElement>) driver).swipe(startx, starty, startx, endy, 3000);
 			}
 		} catch (InterruptedException e) {
