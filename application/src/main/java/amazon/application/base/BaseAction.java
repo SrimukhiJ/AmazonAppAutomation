@@ -162,6 +162,7 @@ public class BaseAction extends Reporter {
 
 		} catch (Exception e) {
 			present = false;
+			e.printStackTrace();
 		}
 		return present;
 	}
@@ -271,8 +272,9 @@ public class BaseAction extends Reporter {
 			FileUtils.copyFile(((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE),
 					new File("./reports/images/" + number + ".jpg"));
 		} catch (IOException e) {
+			e.printStackTrace();
 		} catch (Exception e) {
-
+			e.printStackTrace();
 			System.out.println("The app has been closed.");
 		}
 		return number;
@@ -373,6 +375,7 @@ public class BaseAction extends Reporter {
 			return present;
 		} catch (Exception e) {
 			present = false;
+			e.printStackTrace();
 			return present;
 		}
 	}
@@ -472,6 +475,7 @@ public class BaseAction extends Reporter {
 		try {
 			driver.closeApp();
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

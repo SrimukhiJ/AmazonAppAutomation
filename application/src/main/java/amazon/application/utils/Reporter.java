@@ -47,6 +47,7 @@ public abstract class Reporter {
 			extent.loadConfig(new File("./src/main/resources/extent-config.xml"));
 		}catch(Exception e){
 			System.out.println("exception throwed in startResult method");
+			e.printStackTrace();
 		}
 		return extent;
 	}
@@ -56,6 +57,7 @@ public abstract class Reporter {
 			test = extent.startTest(testCaseName, testDescription);
 		}catch(Exception e){
 			System.out.println("Exception throwed in startTestCase method");
+			e.printStackTrace();
 		}
 		return test;
 	}
@@ -67,6 +69,7 @@ public abstract class Reporter {
 		}
 		catch(Exception e){
 			System.out.println("Exception throwed while endResult method");
+			e.printStackTrace();
 		}
 	}
 //Ends the result after the execution of the test case
@@ -75,6 +78,7 @@ public abstract class Reporter {
 			extent.endTest(test);
 		}catch(Exception e){
 			System.out.println("Exception throwed while endTestcae method");
+			e.printStackTrace();
 		}
 	}
 }

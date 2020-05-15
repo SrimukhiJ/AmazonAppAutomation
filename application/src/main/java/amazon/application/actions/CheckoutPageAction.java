@@ -39,12 +39,10 @@ public class CheckoutPageAction extends Wrapper {
 		String[] prodPriceShopCartFull=getText(prop.getProperty("text.productPriceShoppingCart")).split("\\.");
 		prodPriceShopCartFull[0] = prodPriceShopCartFull[0].replaceAll("[^a-zA-Z0-9]", "");
 		String prodPriceShopCart="₹"+(prodPriceShopCartFull[0].trim());
-		verifyStep("Product price shopping cart : "+prodPriceShopCart, "INFO");
 		String[] subTotalprodPriceShopCartfull=getText(prop.getProperty("text.subTotalShoppingCart")).split("\\.");
 		subTotalprodPriceShopCartfull[0] = subTotalprodPriceShopCartfull[0].replaceAll("[^a-zA-Z0-9]", "");
 		String subTotalprodPriceShopCart="₹"+subTotalprodPriceShopCartfull[0];
 		int prodQuant=Integer.parseInt(getText(prop.getProperty("text.quantityShoppingCart")));		
-		verifyStep("Product quantity shopping cart : "+prodQuant, "INFO");		
 		org.testng.Assert.assertEquals(prodPriceShopCart, BaseAction.productPriceSearchResults);
 		org.testng.Assert.assertEquals(subTotalprodPriceShopCart, BaseAction.productPriceSearchResults);
 		org.testng.Assert.assertEquals(prodQuant, BaseAction.productQuantity);
