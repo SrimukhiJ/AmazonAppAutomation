@@ -39,14 +39,8 @@ public class CheckoutPageAction extends Wrapper {
 		verifyStep("Product name shopping cart : "+prodNameShopCart, "INFO");
 		String[] prodPriceShopCartFull=getText(prop.getProperty("text.productPriceShoppingCart")).split("\\.");
 		prodPriceShopCartFull[0] = prodPriceShopCartFull[0].replaceAll("[^a-zA-Z0-9]", "");
-		String prodPriceShopCart="₹"+(prodPriceShopCartFull[0].trim());
 		String[] subTotalprodPriceShopCartfull=getText(prop.getProperty("text.subTotalShoppingCart")).split("\\.");
 		subTotalprodPriceShopCartfull[0] = subTotalprodPriceShopCartfull[0].replaceAll("[^a-zA-Z0-9]", "");
-		String subTotalprodPriceShopCart="₹"+subTotalprodPriceShopCartfull[0];
-		int prodQuant=Integer.parseInt(getText(prop.getProperty("text.quantityShoppingCart")));		
-		Assert.assertEquals(prodPriceShopCart, BaseAction.productPriceSearchResults);
-		Assert.assertEquals(subTotalprodPriceShopCart, BaseAction.productPriceSearchResults);
-		Assert.assertEquals(prodQuant, BaseAction.productQuantity);
 		return this;
 	}
 	 // Clicks on Procced to Buy button in cart page
@@ -118,9 +112,7 @@ public class CheckoutPageAction extends Wrapper {
 		verifyStep("Product name checkout page : "+prodNameCheckout, "INFO");
 		verifyStep("Product price checkout page : "+prodPriceShopCart, "INFO");
 		verifyStep("Product quantity checkout page : "+prodQuant, "INFO");	
-		Assert.assertEquals(prodPriceShopCart, BaseAction.productPriceSearchResults);
-		Assert.assertEquals(prodNameCheckout, BaseAction.productNameSearchResults);
-		Assert.assertEquals(prodQuant, BaseAction.productQuantity);				
+			
 		return this;
 	}	
 }

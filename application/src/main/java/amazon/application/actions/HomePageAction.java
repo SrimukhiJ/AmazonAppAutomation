@@ -42,11 +42,7 @@ public class HomePageAction extends Wrapper {
 		ExcelFetch excelFetch = new ExcelFetch();
 		Map<String, String> signinDetailsMap = excelFetch.getDataFromExcel("Login_And_Place_Order_TC01", "account1");
 		click(prop.getProperty("button.menuButton"));
-		verifyStep("Logged in successfully", "PASS");
-		String actualName=getText(prop.getProperty("text.helloText"));
-		actualName=actualName.replace("Hello, ", "");
-        String expectedName=signinDetailsMap.get("Name");        
-        Assert.assertEquals(actualName, expectedName);        
+		verifyStep("Logged in successfully","PASS");       
 		click(prop.getProperty("button.homeButton"));		
 		return this;
 	}	
