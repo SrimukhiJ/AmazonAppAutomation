@@ -32,16 +32,14 @@ public class PDPPageAction extends Wrapper {
 	}
 	//Search a product and validate details
 	public PDPPageAction validateSearchResultPage() throws InterruptedException {
-		swipeFullFromBottomToTop("android");
-		swipeFullFromBottomToTop("android");
-		swipeFullFromBottomToTop("android");		
+		swipeFullFromBottomToTop("android");	
 		BaseAction.productNameSearchResults=getText(prop.getProperty("text.prodSearchPageTitle"));
 		String[] fullPrice=getText(prop.getProperty("text.prodSearchPagePrice")).split(" ");
 		System.out.println("price full : "+fullPrice[0]);
 		System.out.println("name full : "+BaseAction.productNameSearchResults);
 		if(!fullPrice[0].contains("₹"))
 		{
-			org.testng.Assert.assertTrue(false,"₹ not present in search results page");
+			Assert.assertTrue(false,"₹ not present in search results page");
 		}
 		BaseAction.productPriceSearchResults=fullPrice[0];
 		verifyStep("Product Name search page :"+BaseAction.productNameSearchResults, "INFO");
