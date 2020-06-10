@@ -1,5 +1,6 @@
 package amazon.application.actions;
 import java.io.File;
+import org.testng.Reporter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -35,8 +36,8 @@ public class PDPPageAction extends Wrapper {
 		swipeFullFromBottomToTop("android");	
 		BaseAction.productNameSearchResults=getText(prop.getProperty("text.prodSearchPageTitle"));
 		String[] fullPrice=getText(prop.getProperty("text.prodSearchPagePrice")).split(" ");
-		System.out.println("price full : "+fullPrice[0]);
-		System.out.println("name full : "+BaseAction.productNameSearchResults);
+		Reporter.log("price full : "+fullPrice[0]);
+		Reporter.log("name full : "+BaseAction.productNameSearchResults);
 		if(!fullPrice[0].contains("₹"))
 		{
 			Assert.assertTrue(false,"₹ not present in search results page");
@@ -81,7 +82,7 @@ public class PDPPageAction extends Wrapper {
 		int cartCountAfter=Integer.parseInt(getText(prop.getProperty("text.cartCount")));
 		if(cartCountBefore+BaseAction.productQuantity==cartCountAfter)
 		{
-			System.out.println("Product added to cart");
+			Reporter.log("Product added to cart");
 		}
 		return this;
 	}

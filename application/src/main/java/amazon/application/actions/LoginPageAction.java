@@ -1,5 +1,6 @@
 package amazon.application.actions;
 import java.io.File;
+import org.testng.Reporter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class LoginPageAction extends Wrapper {
 	public LoginPageAction signIn() throws InterruptedException {
 		ExcelFetch excelFetch = new ExcelFetch();
 		Map<String, String> signinDetailsMap = excelFetch.getDataFromExcel("Login_And_Place_Order_TC01", "account1");
-		System.out.println("map" + signinDetailsMap);
+		Reporter.log("map" + signinDetailsMap);
 		verifyStep("App launched", "PASS");
 		verifyElementIsDisplayed(prop.getProperty("button.signInButtonNavigation"));
 		click(prop.getProperty("button.signInButtonNavigation"));

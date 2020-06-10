@@ -1,5 +1,6 @@
 package amazon.application.actions;
 import java.io.File;
+import org.testng.Reporter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -51,7 +52,7 @@ public class CheckoutPageAction extends Wrapper {
 	 // Selects the shipping address and proceed to the next page
 	public CheckoutPageAction selectShippingAddress() {		
 		String address=getText(prop.getProperty("text.ShippingAddress"));
-		System.out.println("address : "+address);		
+		Reporter.log("address : "+address);
 		click(prop.getProperty("button.deliverButton"));
 		click(prop.getProperty("button.continueButton"));
 		return this;
@@ -92,7 +93,7 @@ public class CheckoutPageAction extends Wrapper {
 	    if(BaseAction.offerProduct)
 	    {
 		   swipeToElement("android", prop.getProperty("text.ProductQuantityCheckout"));
-		   System.out.println("offer product");
+		   Reporter.log("offer product");
 		   swipeFullFromBottomToTop("android");
 			prodNameCheckout=getText(prop.getProperty("text.ProductTitleCheckoutOfferProduct"));			
 			String[] prodPriceShopCartFull=getText(prop.getProperty("text.ProductPriceCheckoutOfferProduct")).split("\\.");
@@ -101,7 +102,7 @@ public class CheckoutPageAction extends Wrapper {
 	   else
 	   {
 		   swipeToElement("android", prop.getProperty("text.ProductQuantityCheckout"));
-		   System.out.println("non offer product : ");
+		   Reporter.log("non offer product : ");
 		   swipeFullFromBottomToTop("android");
 			prodNameCheckout=getText(prop.getProperty("text.ProductTitleCheckout"));			
 			String[] prodPriceShopCartFull=getText(prop.getProperty("text.ProductPriceCheckout")).split("\\.");
@@ -111,8 +112,7 @@ public class CheckoutPageAction extends Wrapper {
 		prodQuant=Integer.parseInt(quantFull);		
 		verifyStep("Product name checkout page : "+prodNameCheckout, "INFO");
 		verifyStep("Product price checkout page : "+prodPriceShopCart, "INFO");
-		verifyStep("Product quantity checkout page : "+prodQuant, "INFO");	
-			
+		verifyStep("Product quantity checkout page : "+prodQuant, "INFO");				
 		return this;
 	}	
 }
